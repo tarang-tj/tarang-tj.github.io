@@ -70,9 +70,13 @@
   .section-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; }
   .section-title { font-family: 'DM Serif Display', serif; font-size: 2.4rem; letter-spacing: -0.02em; }
 
-  .projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); }
   .project-card { padding: 2.25rem; border-right: 1px solid var(--rule); position: relative; overflow: hidden; transition: background 0.3s; }
   .project-card:last-child { border-right: none; }
+  .project-card:nth-child(3) { border-right: none; }
+  .project-card:nth-child(4) { border-top: 1px solid var(--rule); }
+  .project-card:nth-child(5) { border-top: 1px solid var(--rule); }
+  .project-card:nth-child(6) { border-top: 1px solid var(--rule); border-right: none; }
   .project-card:hover { background: var(--card); }
   .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
   .project-card:hover::before { transform: scaleX(1); }
@@ -127,6 +131,8 @@
     .hero-right { padding: 2rem 1.5rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .project-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .project-card:nth-child(3) { border-right: none; }
+    .project-card:nth-child(4), .project-card:nth-child(5), .project-card:nth-child(6) { border-top: none; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .skill-group:nth-child(2) { border-right: none; }
     .skill-group:nth-child(3) { border-right: 1px solid var(--rule); border-top: 1px solid var(--rule); }
@@ -189,6 +195,33 @@
   </div>
   <div class="projects-grid">
 
+    <a href="https://economic-pulse-dashboard-bwxtaias7g4h7ctqpcntbg.streamlit.app/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
+      <div class="project-year">2026</div>
+      <div class="project-name">Economic Pulse Dashboard</div>
+      <p class="project-desc">End-to-end Python pipeline fetching 7 FRED macroeconomic indicators. ETL with pandas, statistical trend detection via linear regression, and an interactive Streamlit dashboard with Plotly charts, recession shading, and correlation heatmap.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">pandas</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">FRED API</span>
+        <span class="tag">ETL</span>
+      </div>
+      <span class="project-link">Live Demo ↗</span>
+    </a>
+
+    <a href="https://github.com/tarang-tj/ecommerce-sql" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
+      <div class="project-year">2026</div>
+      <div class="project-name">E-Commerce SQL Analytics</div>
+      <p class="project-desc">End-to-end PostgreSQL analytics project on a normalized 6-table e-commerce schema. Revenue KPIs, customer lifetime value, cohort retention, market basket analysis, and rolling revenue windows across 4 query modules.</p>
+      <div class="project-tags">
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Cohort Analysis</span>
+        <span class="tag">Window Functions</span>
+      </div>
+      <span class="project-link">View Project ↗</span>
+    </a>
+
     <a href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
       <div class="project-year">2026</div>
       <div class="project-name">WA Homelessness &amp; Housing Affordability Analysis</div>
@@ -198,19 +231,6 @@
         <span class="tag">Tableau</span>
         <span class="tag">Trend Analysis</span>
         <span class="tag">Public Data</span>
-      </div>
-      <span class="project-link">View Project ↗</span>
-    </a>
-
-    <a href="https://tarang-tj.github.io/ecommerce-sql/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
-      <div class="project-year">2026</div>
-      <div class="project-name">E-Commerce SQL Analytics</div>
-      <p class="project-desc">End-to-end PostgreSQL analytics project on a normalized 6-table e-commerce schema. Revenue KPIs, customer lifetime value, cohort retention, market basket analysis, and rolling revenue windows across 4 query modules.</p>
-      <div class="project-tags">
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">SQL</span>
-        <span class="tag">Cohort Analysis</span>
-        <span class="tag">Window Functions</span>
       </div>
       <span class="project-link">View Project ↗</span>
     </a>
@@ -306,7 +326,7 @@
     </div>
     <div class="skill-group reveal">
       <div class="skill-group-title">Visualization</div>
-      <ul class="skill-list"><li>Tableau</li><li>Power BI</li><li>Excel Dashboards</li></ul>
+      <ul class="skill-list"><li>Tableau</li><li>Power BI</li><li>Excel Dashboards</li><li>Plotly / Streamlit</li></ul>
     </div>
     <div class="skill-group reveal">
       <div class="skill-group-title">Methodology</div>
