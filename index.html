@@ -4,143 +4,237 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TJ Jammalamadaka — Data & Business Analyst</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0f0f0f;
-    --paper: #f5f2ec;
-    --accent: #c84b2f;
-    --accent2: #1a4a6b;
-    --muted: #7a7269;
-    --rule: #d8d3c8;
-    --card: #efeae0;
-  }
+:root {
+  --bg: #f8f6f1;
+  --bg2: #f0ede6;
+  --bg3: #e8e4db;
+  --ink: #1a1a1a;
+  --ink2: #6b6860;
+  --ink3: #a8a49c;
+  --teal: #1a6b5e;
+  --teal-dim: rgba(26,107,94,0.08);
+  --rule: rgba(0,0,0,0.08);
+  --rule2: rgba(0,0,0,0.14);
+  --serif: 'Instrument Serif', serif;
+  --mono: 'Geist Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.6;
-  }
+.cursor{position:fixed;width:7px;height:7px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(26,107,94,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.18s,height 0.18s}
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.25rem 3rem;
-    background: rgba(245, 242, 236, 0.88);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--rule);
-  }
-  .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--ink); }
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.012) 3px,rgba(0,0,0,0.012) 6px);pointer-events:none;z-index:9997}
 
-  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; }
-  .hero-left { padding: 6rem 3rem 4rem 3rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--rule); }
-  .hero-tag { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
-  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.35s; }
-  .hero-name em { font-style: italic; color: var(--accent); }
-  .hero-title { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 380px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s; }
-  .hero-cta { display: flex; gap: 1rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.65s; }
-  .btn { display: inline-block; padding: 0.75rem 1.75rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; transition: all 0.2s; }
-  .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-filled { background: var(--accent); border-color: var(--accent); color: white; }
-  .btn-filled:hover { background: #a83a20; border-color: #a83a20; color: white; }
+.glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.glow-a{width:600px;height:600px;top:-180px;right:-120px;background:radial-gradient(circle,rgba(26,107,94,0.07) 0%,transparent 65%)}
+.glow-b{width:400px;height:400px;bottom:-80px;left:-100px;background:radial-gradient(circle,rgba(26,107,94,0.05) 0%,transparent 65%)}
 
-  .hero-right { padding: 6rem 3rem 4rem 3rem; display: flex; flex-direction: column; justify-content: center; gap: 0; }
-  .stat-row { padding: 1.75rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: baseline; gap: 1.25rem; opacity: 0; animation: fadeUp 0.6s ease forwards; }
-  .stat-row:nth-child(1) { animation-delay: 0.4s; }
-  .stat-row:nth-child(2) { animation-delay: 0.55s; }
-  .stat-row:nth-child(3) { animation-delay: 0.7s; }
-  .stat-row:nth-child(4) { animation-delay: 0.85s; }
-  .stat-number { font-family: 'DM Serif Display', serif; font-size: 2.8rem; color: var(--accent); line-height: 1; min-width: 90px; }
-  .stat-label { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
-  .stat-label strong { display: block; color: var(--ink); font-weight: 500; font-size: 0.92rem; margin-bottom: 0.15rem; }
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 2.5rem;height:52px;
+  background:rgba(248,246,241,0.88);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-logo{font-family:var(--mono);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;color:var(--teal)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-pill{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:0.58rem;color:var(--ink3);letter-spacing:0.08em}
+.pulse{width:5px;height:5px;background:var(--teal);border-radius:50%;animation:blink 2s ease infinite;box-shadow:0 0 0 2px rgba(26,107,94,0.2)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
 
-  section { padding: 5rem 3rem; border-top: 1px solid var(--rule); }
-  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
-  .section-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: 2.4rem; letter-spacing: -0.02em; }
+/* HERO */
+.hero{
+  padding-top:52px;
+  display:grid;
+  grid-template-rows:auto auto;
+  position:relative;z-index:1;
+}
+.hero-body{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:2.5rem;
+  padding:3rem 2.5rem 2rem;
+  align-items:center;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;
+  opacity:0;animation:up 0.6s ease forwards 0.1s;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--teal);opacity:0.5}
+h1{
+  font-family:var(--serif);
+  font-size:clamp(3rem,5.5vw,5.5rem);
+  font-weight:400;line-height:0.95;letter-spacing:-0.02em;
+  margin-bottom:1.5rem;
+  opacity:0;animation:up 0.75s ease forwards 0.22s;
+}
+h1 em{font-style:italic;color:var(--teal)}
+.hero-desc{
+  font-size:0.9rem;color:var(--ink2);line-height:1.8;max-width:480px;
+  opacity:0;animation:up 0.7s ease forwards 0.38s;
+}
+.hero-stats{
+  border-left:1px solid var(--rule);
+  padding-left:2.5rem;
+  display:flex;flex-direction:column;gap:0;
+}
+.hstat{
+  padding:0.9rem 0;border-bottom:1px solid var(--rule);
+  opacity:0;animation:up 0.55s ease forwards;
+}
+.hstat:nth-child(1){animation-delay:0.28s}
+.hstat:nth-child(2){animation-delay:0.38s}
+.hstat:nth-child(3){animation-delay:0.48s}
+.hstat:nth-child(4){animation-delay:0.58s}
+.hstat:last-child{border-bottom:none}
+.hn{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--teal);line-height:1;letter-spacing:-0.04em;margin-bottom:3px}
+.hl{font-size:0.7rem;color:var(--ink2);line-height:1.5}
+.hl strong{display:block;color:var(--ink);font-weight:500;font-size:0.75rem;font-family:var(--sans);margin-bottom:1px}
 
-  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); }
-  .project-card { padding: 2.25rem; border-right: 1px solid var(--rule); position: relative; overflow: hidden; transition: background 0.3s; }
-  .project-card:last-child { border-right: none; }
-  .project-card:hover { background: var(--card); }
-  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
-  .project-card:hover::before { transform: scaleX(1); }
-  .project-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
-  .project-name { font-family: 'DM Serif Display', serif; font-size: 1.25rem; line-height: 1.25; margin-bottom: 1rem; letter-spacing: -0.01em; }
-  .project-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem; }
-  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .tag { font-family: 'DM Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; padding: 0.25rem 0.6rem; border: 1px solid var(--rule); color: var(--muted); text-transform: uppercase; }
-  .project-link { display: inline-block; margin-top: 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+/* hero footer bar */
+.hero-foot{
+  border-top:1px solid var(--rule);
+  padding:0.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  opacity:0;animation:up 0.6s ease forwards 0.7s;
+}
+.hf-info{display:flex;gap:2.5rem}
+.hf-item .hf-l{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.hf-item .hf-v{font-size:0.78rem;color:var(--ink2)}
+.btns{display:flex;gap:8px}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0.55rem 1.25rem;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--rule2);color:var(--ink2);background:transparent;
+  cursor:none;transition:all 0.2s;border-radius:2px;
+}
+.btn:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-dim)}
+.btn-p{background:var(--teal);border-color:var(--teal);color:#f8f6f1;font-weight:500}
+.btn-p:hover{background:#155a4e;border-color:#155a4e;color:#f8f6f1}
 
-  .experience-list { display: flex; flex-direction: column; }
-  .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 2.25rem 0; border-bottom: 1px solid var(--rule); }
-  .exp-item:first-child { border-top: 1px solid var(--rule); }
-  .exp-meta { padding-top: 0.2rem; }
-  .exp-dates { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.4rem; }
-  .exp-company { font-size: 0.8rem; color: var(--accent2); font-weight: 500; }
-  .exp-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .exp-bullets li { font-size: 0.83rem; color: var(--muted); line-height: 1.6; padding-left: 1rem; position: relative; }
-  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; }
+/* SECTIONS */
+.wrap{max-width:1100px;margin:0 auto;padding:0 2.5rem}
+section{padding:3.5rem 0;border-top:1px solid var(--rule);position:relative;z-index:1}
 
-  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); }
-  .skill-group { padding: 2rem; border-right: 1px solid var(--rule); }
-  .skill-group:last-child { border-right: none; }
-  .skill-group-title { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
-  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-  .skill-list li { font-size: 0.85rem; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
-  .skill-list li::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.slabel{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;display:flex;align-items:center;gap:8px}
+.slabel::after{content:'';flex:0 0 20px;height:1px;background:var(--teal);opacity:0.4}
+h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-0.02em;color:var(--ink);margin-bottom:2rem;line-height:1.1}
+h2 em{font-style:italic;color:var(--teal)}
 
-  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .contact-heading { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; }
-  .contact-heading em { font-style: italic; color: var(--accent); }
-  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-  .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; border: 1px solid var(--rule); text-decoration: none; color: var(--ink); transition: all 0.2s; background: transparent; }
-  .contact-link:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .contact-link:hover .contact-link-label { color: rgba(245,242,236,0.6); }
-  .contact-link-icon { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); min-width: 70px; transition: color 0.2s; }
-  .contact-link:hover .contact-link-icon { color: rgba(245,242,236,0.5); }
-  .contact-link-text { font-size: 0.88rem; font-weight: 400; }
-  .contact-link-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-left: auto; text-transform: uppercase; letter-spacing: 0.08em; }
+/* PROJECTS */
+.proj-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.25rem}
+.proj-count{font-family:var(--mono);font-size:0.58rem;color:var(--ink3);letter-spacing:0.1em}
 
-  footer { border-top: 1px solid var(--rule); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
-  footer span { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+.prows{display:flex;flex-direction:column}
+.prow{
+  display:grid;grid-template-columns:64px 1fr 1fr 24px;
+  gap:1.75rem;align-items:start;
+  padding:1.5rem 0;border-top:1px solid var(--rule);
+  text-decoration:none;color:inherit;position:relative;
+  transition:background 0.2s;
+}
+.prow:last-child{border-bottom:1px solid var(--rule)}
+.prow::before{content:'';position:absolute;left:-2.5rem;right:-2.5rem;top:0;bottom:0;background:var(--teal-dim);opacity:0;transition:opacity 0.22s}
+.prow:hover::before{opacity:1}
+.pnum{font-family:var(--mono);font-size:0.6rem;color:var(--ink3);letter-spacing:0.1em;padding-top:3px}
+.pyear{font-family:var(--mono);font-size:0.56rem;color:var(--teal);letter-spacing:0.12em;margin-bottom:0.3rem}
+.pname{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--ink);line-height:1.2;letter-spacing:-0.01em}
+.pdesc{font-size:0.8rem;color:var(--ink2);line-height:1.75;padding-top:3px}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-top:0.6rem}
+.ptag{font-family:var(--mono);font-size:0.54rem;letter-spacing:0.07em;padding:2px 7px;border:1px solid var(--rule2);color:var(--ink3);border-radius:2px}
+.parr{font-size:1rem;color:var(--ink3);transition:color 0.2s,transform 0.2s;align-self:center}
+.prow:hover .parr{color:var(--teal);transform:translate(3px,-3px)}
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+/* EXPERIENCE */
+.explist{display:flex;flex-direction:column;position:relative}
+.explist::before{content:'';position:absolute;left:128px;top:0;bottom:0;width:1px;background:var(--rule)}
+.expe{
+  display:grid;grid-template-columns:128px 1fr;
+  gap:2.5rem;padding:1.75rem 0;border-bottom:1px solid var(--rule);
+}
+.expe:first-child{border-top:1px solid var(--rule)}
+.exps{position:relative}
+.exps::after{content:'';position:absolute;right:-2.75rem;top:6px;width:6px;height:6px;border-radius:50%;background:var(--bg);border:1px solid var(--ink3);z-index:1}
+.expe:first-child .exps::after{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,107,94,0.15)}
+.expdates{font-family:var(--mono);font-size:0.58rem;color:var(--ink3);letter-spacing:0.05em;line-height:1.65;margin-bottom:5px}
+.expco{font-family:var(--mono);font-size:0.62rem;color:var(--teal);letter-spacing:0.05em}
+.exprole{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:0.75rem;letter-spacing:-0.01em}
+.expbullets{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.expbullets li{font-size:0.8rem;color:var(--ink2);line-height:1.7;padding-left:1rem;position:relative}
+.expbullets li::before{content:'›';position:absolute;left:0;color:var(--teal);opacity:0.55;font-size:0.88rem}
 
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); padding: 4rem 1.5rem 3rem; }
-    .hero-right { padding: 2rem 1.5rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card { border-right: none; border-bottom: 1px solid var(--rule); }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .skill-group:nth-child(2) { border-right: none; }
-    .skill-group:nth-child(3) { border-right: 1px solid var(--rule); border-top: 1px solid var(--rule); }
-    .skill-group:nth-child(4) { border-right: none; border-top: 1px solid var(--rule); }
-    .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-    nav { padding: 1rem 1.5rem; }
-    section { padding: 3.5rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
+/* SKILLS */
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.skcell{background:var(--bg2);padding:1.5rem 2rem}
+.sklabel{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem}
+.skpills{display:flex;flex-wrap:wrap;gap:7px}
+.skpill{font-size:0.78rem;color:var(--ink2);padding:4px 12px;border:1px solid var(--rule2);border-radius:20px;transition:border-color 0.2s,color 0.2s}
+.skpill:hover{border-color:var(--teal);color:var(--teal)}
+
+/* CONTACT */
+.ctgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.ctbig{font-family:var(--serif);font-size:clamp(2rem,3.8vw,3.6rem);font-weight:400;line-height:0.98;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1rem}
+.ctbig em{font-style:italic;color:var(--teal)}
+.ctnote{font-size:0.8rem;color:var(--ink2);line-height:1.8;max-width:320px}
+.ctlinks{display:flex;flex-direction:column}
+.cta{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;transition:padding-left 0.2s;
+}
+.cta:first-child{border-top:1px solid var(--rule)}
+.cta:hover{padding-left:0.4rem}
+.cta-tag{font-family:var(--mono);font-size:0.57rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);min-width:68px}
+.cta-val{font-size:0.82rem;color:var(--ink2);transition:color 0.2s}
+.cta:hover .cta-val{color:var(--ink)}
+.cta-arr{margin-left:auto;font-size:0.85rem;color:var(--ink3);transition:color 0.2s,transform 0.2s}
+.cta:hover .cta-arr{color:var(--teal);transform:translate(2px,-2px)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--rule);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+footer span{font-family:var(--mono);font-size:0.58rem;color:var(--ink3);letter-spacing:0.05em}
+footer a{color:var(--ink3);text-decoration:none;transition:color 0.2s}
+footer a:hover{color:var(--teal)}
+
+/* ANIM */
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 1.25rem}
+  .hero-body{grid-template-columns:1fr;padding:2rem 1.25rem 1.5rem}
+  .hero-stats{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:1.25rem;display:grid;grid-template-columns:1fr 1fr}
+  .hero-foot{padding:0.9rem 1.25rem;flex-direction:column;gap:1rem;align-items:flex-start}
+  .wrap{padding:0 1.25rem}
+  .prow{grid-template-columns:44px 1fr 24px}
+  .pdesc,.ptags{display:none}
+  .explist::before{display:none}
+  .expe{grid-template-columns:1fr;gap:0.4rem}
+  .skgrid{grid-template-columns:1fr}
+  .ctgrid{grid-template-columns:1fr;gap:2rem}
+  footer{flex-direction:column;gap:0.4rem;text-align:center;padding:1rem 1.25rem}
+}
 </style>
 </head>
 <body>
+
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
 
 <nav>
   <div class="nav-logo">TJ_</div>
@@ -150,183 +244,176 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <div class="nav-pill"><div class="pulse"></div>Seattle, WA</div>
 </nav>
 
-<section class="hero" style="border-top:none; padding: 0;">
-  <div class="hero-left">
-    <p class="hero-tag">Data &amp; Business Analyst</p>
-    <h1 class="hero-name">Tarang<br><em>(TJ)</em><br>Jammalamadaka</h1>
-    <p class="hero-title">MIS student at UW Bothell turning messy data into decisions that stick. 4+ years across product analytics, IT business analysis, and operations.</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-filled">View Work</a>
-      <a href="mailto:tarangjammalamadaka9@gmail.com" class="btn">Get in Touch</a>
+<section class="hero" style="border-top:none;padding:0">
+  <div class="hero-body">
+    <div>
+      <div class="eyebrow">Data &amp; Business Analyst</div>
+      <h1>Tarang <em>(TJ)</em><br>Jammalamadaka</h1>
+      <p class="hero-desc">MIS student at UW Bothell turning messy data into decisions that stick. 4+ years across product analytics, IT business analysis, and operations.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hn">4+</div>
+        <div class="hl"><strong>Years of Experience</strong>IT BA → Product Analyst → Ops Analyst</div>
+      </div>
+      <div class="hstat">
+        <div class="hn">50K</div>
+        <div class="hl"><strong>MAU Database</strong>SQL cohort analysis at JMT Worldwide</div>
+      </div>
+      <div class="hstat">
+        <div class="hn">12+</div>
+        <div class="hl"><strong>Dashboards Built</strong>Tableau &amp; Power BI for C-suite stakeholders</div>
+      </div>
+      <div class="hstat">
+        <div class="hn">3.7</div>
+        <div class="hl"><strong>GPA — Dean's List</strong>University of Washington Bothell, 2027</div>
+      </div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="stat-row">
-      <div class="stat-number">4+</div>
-      <div class="stat-label"><strong>Years of Experience</strong>IT BA → Product Analyst → Ops Analyst</div>
+  <div class="hero-foot">
+    <div class="hf-info">
+      <div class="hf-item"><div class="hf-l">Currently at</div><div class="hf-v">Quadcore Innovations</div></div>
+      <div class="hf-item"><div class="hf-l">Role</div><div class="hf-v">Operations Improvement Analyst</div></div>
+      <div class="hf-item"><div class="hf-l">Open to</div><div class="hf-v">Full-time &amp; internship opportunities</div></div>
     </div>
-    <div class="stat-row">
-      <div class="stat-number">50K</div>
-      <div class="stat-label"><strong>MAU Database</strong>SQL cohort analysis at JMT Worldwide</div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-number">12+</div>
-      <div class="stat-label"><strong>Dashboards Built</strong>Tableau &amp; Power BI for C-suite stakeholders</div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-number">3.7</div>
-      <div class="stat-label"><strong>GPA — Dean's List</strong>University of Washington Bothell, 2027</div>
+    <div class="btns">
+      <a href="#projects" class="btn btn-p">View Work</a>
+      <a href="mailto:tarangjammalamadaka9@gmail.com" class="btn" target="_self">Get in Touch</a>
     </div>
   </div>
 </section>
 
 <section id="projects">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Selected Projects</h2>
-  </div>
-  <div class="projects-grid">
+  <div class="wrap">
+    <div class="proj-head">
+      <div><div class="slabel">Selected Projects</div><h2>Work that <em>ships</em></h2></div>
+      <div class="proj-count">03 projects</div>
+    </div>
+    <div class="prows">
 
-    <a href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
-      <div class="project-year">2026</div>
-      <div class="project-name">WA Homelessness &amp; Housing Affordability Analysis</div>
-      <p class="project-desc">Team analysis of 9 years of Zillow Rental Index data alongside income and homelessness metrics for Washington State. Identified inflection points where rent outpaced income growth and built an interactive Tableau dashboard for policy storytelling.</p>
-      <div class="project-tags">
-        <span class="tag">R</span>
-        <span class="tag">Tableau</span>
-        <span class="tag">Trend Analysis</span>
-        <span class="tag">Public Data</span>
-      </div>
-      <span class="project-link">View Project ↗</span>
-    </a>
+      <a href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" class="prow reveal">
+        <div class="pnum">01</div>
+        <div><div class="pyear">2026</div><div class="pname">WA Homelessness &amp; Housing Affordability Analysis</div></div>
+        <div><p class="pdesc">Team analysis of 9 years of Zillow Rental Index data alongside income and homelessness metrics for Washington State. Identified inflection points where rent outpaced income growth.</p>
+        <div class="ptags"><span class="ptag">R</span><span class="ptag">Tableau</span><span class="ptag">Trend Analysis</span><span class="ptag">Public Data</span></div></div>
+        <div class="parr">↗</div>
+      </a>
 
-    <a href="https://tarang-tj.github.io/operations-forecasting-model/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
-      <div class="project-year">2025</div>
-      <div class="project-name">Operations &amp; Forecasting Model</div>
-      <p class="project-desc">Built a multivariate regression model on 18 months of sales data achieving 94% prediction accuracy. Designed an interactive KPI dashboard tracking 15+ operational metrics driving a 35% reduction in carrying costs.</p>
-      <div class="project-tags">
-        <span class="tag">Excel</span>
-        <span class="tag">Regression</span>
-        <span class="tag">KPI Dashboard</span>
-        <span class="tag">Forecasting</span>
-      </div>
-      <span class="project-link">View Project ↗</span>
-    </a>
+      <a href="https://tarang-tj.github.io/operations-forecasting-model/" target="_blank" class="prow reveal">
+        <div class="pnum">02</div>
+        <div><div class="pyear">2025</div><div class="pname">Operations &amp; Forecasting Model</div></div>
+        <div><p class="pdesc">Multivariate regression on 18 months of sales data achieving 94% accuracy. Interactive KPI dashboard tracking 15+ operational metrics — 35% reduction in carrying costs.</p>
+        <div class="ptags"><span class="ptag">Excel</span><span class="ptag">Regression</span><span class="ptag">KPI Dashboard</span><span class="ptag">Forecasting</span></div></div>
+        <div class="parr">↗</div>
+      </a>
 
-    <a href="https://tarang-tj.github.io/team-cartier-dashboard/" target="_blank" class="project-card reveal" style="display:block; text-decoration:none; color:inherit; cursor:pointer;">
-      <div class="project-year">2025</div>
-      <div class="project-name">CED Financial Case Competition</div>
-      <p class="project-desc">Modeled a multi-channel growth strategy projecting $15.3M revenue and 81.5% operating income improvement. Analyzed 25+ expense categories to identify 10–16% cost reduction levers.</p>
-      <div class="project-tags">
-        <span class="tag">Financial Modeling</span>
-        <span class="tag">Strategy</span>
-        <span class="tag">Excel</span>
-      </div>
-      <span class="project-link">View Dashboard ↗</span>
-    </a>
+      <a href="https://tarang-tj.github.io/team-cartier-dashboard/" target="_blank" class="prow reveal">
+        <div class="pnum">03</div>
+        <div><div class="pyear">2025</div><div class="pname">CED Financial Case Competition</div></div>
+        <div><p class="pdesc">Multi-channel growth strategy projecting $15.3M revenue and 81.5% operating income improvement. Analyzed 25+ expense categories to identify 10–16% cost reduction levers.</p>
+        <div class="ptags"><span class="ptag">Financial Modeling</span><span class="ptag">Strategy</span><span class="ptag">Excel</span></div></div>
+        <div class="parr">↗</div>
+      </a>
 
+    </div>
   </div>
 </section>
 
 <section id="experience">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Experience</h2>
-  </div>
-  <div class="experience-list">
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-dates">Oct 2025 — Present</div>
-        <div class="exp-company">Quadcore Innovations</div>
+  <div class="wrap">
+    <div class="slabel">Experience</div>
+    <h2>Where I've <em>worked</em></h2>
+    <div class="explist">
+
+      <div class="expe reveal">
+        <div class="exps">
+          <div class="expdates">Oct 2025<br>Present</div>
+          <div class="expco">Quadcore Innovations</div>
+        </div>
+        <div>
+          <div class="exprole">Operations Improvement Analyst</div>
+          <ul class="expbullets">
+            <li>Mapped end-to-end workflows and performed root cause analysis to isolate three bottlenecks, cutting process completion time by 25%.</li>
+            <li>Designed Tableau dashboards tracking transaction volume, issue resolution rates, and system uptime for weekly leadership reviews.</li>
+            <li>Automated recurring reporting with SQL and Power BI, reducing manual data entry and reporting cycle time by 40%.</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <div class="exp-title">Operations Improvement Analyst</div>
-        <ul class="exp-bullets">
-          <li>Mapped end-to-end workflows and performed root cause analysis to isolate three bottlenecks, cutting process completion time by 25%.</li>
-          <li>Designed Tableau dashboards tracking transaction volume, issue resolution rates, and system uptime for weekly leadership reviews.</li>
-          <li>Automated recurring reporting with SQL and Power BI, reducing manual data entry and reporting cycle time by 40%.</li>
-        </ul>
+
+      <div class="expe reveal">
+        <div class="exps">
+          <div class="expdates">Sep 2022<br>Sep 2024</div>
+          <div class="expco">JMT Worldwide LLC</div>
+        </div>
+        <div>
+          <div class="exprole">Product Analyst</div>
+          <ul class="expbullets">
+            <li>Wrote SQL queries against a 50K+ MAU database for behavioral cohort analysis, driving a 7% improvement in a core retention metric.</li>
+            <li>Built 12 Tableau dashboards consolidating multi-source data for C-suite stakeholders, cutting reporting time by 60%.</li>
+            <li>Synthesized 500+ user feedback responses into a prioritized insight framework contributing to a 10% lift in feature adoption.</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-dates">Sep 2022 — Sep 2024</div>
-        <div class="exp-company">JMT Worldwide LLC</div>
+
+      <div class="expe reveal">
+        <div class="exps">
+          <div class="expdates">Aug 2021<br>Jun 2022</div>
+          <div class="expco">JMT Worldwide LLC</div>
+        </div>
+        <div>
+          <div class="exprole">IT Business Analyst</div>
+          <ul class="expbullets">
+            <li>Gathered and documented stakeholder requirements, translating operational needs into technical specifications bridging business and engineering.</li>
+            <li>Conducted gap analyses and produced process workflows that reduced operational inefficiencies by 15%.</li>
+            <li>Managed Agile backlogs in Jira and contributed to 90% on-time milestone delivery across multiple workstreams.</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <div class="exp-title">Product Analyst</div>
-        <ul class="exp-bullets">
-          <li>Wrote SQL queries against a 50K+ MAU database for behavioral cohort analysis, driving a 7% improvement in a core retention metric.</li>
-          <li>Built 12 Tableau dashboards consolidating multi-source data for C-suite stakeholders, cutting reporting time by 60%.</li>
-          <li>Synthesized 500+ user feedback responses into a prioritized insight framework contributing to a 10% lift in feature adoption.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-dates">Aug 2021 — Jun 2022</div>
-        <div class="exp-company">JMT Worldwide LLC</div>
-      </div>
-      <div>
-        <div class="exp-title">IT Business Analyst</div>
-        <ul class="exp-bullets">
-          <li>Gathered and documented stakeholder requirements, translating operational needs into technical specifications bridging business and engineering.</li>
-          <li>Conducted gap analyses and produced process workflows that reduced operational inefficiencies by 15%.</li>
-          <li>Managed Agile backlogs in Jira and contributed to 90% on-time milestone delivery across multiple workstreams.</li>
-        </ul>
-      </div>
+
     </div>
   </div>
 </section>
 
 <section id="skills">
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Skills</h2>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-group reveal">
-      <div class="skill-group-title">Languages</div>
-      <ul class="skill-list"><li>SQL</li><li>Python</li><li>R</li><li>JavaScript</li></ul>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">Visualization</div>
-      <ul class="skill-list"><li>Tableau</li><li>Power BI</li><li>Excel Dashboards</li></ul>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">Methodology</div>
-      <ul class="skill-list"><li>Agile / Scrum</li><li>Requirements Gathering</li><li>Gap Analysis</li><li>Process Mapping</li><li>Root Cause Analysis</li></ul>
-    </div>
-    <div class="skill-group reveal">
-      <div class="skill-group-title">Tools</div>
-      <ul class="skill-list"><li>Jira</li><li>Microsoft 365</li><li>Google Suite</li><li>Power BI (certified)</li></ul>
+  <div class="wrap">
+    <div class="slabel">Skills</div>
+    <h2>Tools of the <em>trade</em></h2>
+    <div class="skgrid reveal">
+      <div class="skcell"><div class="sklabel">Languages</div><div class="skpills"><span class="skpill">SQL</span><span class="skpill">Python</span><span class="skpill">R</span><span class="skpill">JavaScript</span></div></div>
+      <div class="skcell"><div class="sklabel">Visualization</div><div class="skpills"><span class="skpill">Tableau</span><span class="skpill">Power BI</span><span class="skpill">Excel Dashboards</span></div></div>
+      <div class="skcell"><div class="sklabel">Methodology</div><div class="skpills"><span class="skpill">Agile / Scrum</span><span class="skpill">Requirements Gathering</span><span class="skpill">Gap Analysis</span><span class="skpill">Process Mapping</span><span class="skpill">Root Cause Analysis</span></div></div>
+      <div class="skcell"><div class="sklabel">Tools</div><div class="skpills"><span class="skpill">Jira</span><span class="skpill">Microsoft 365</span><span class="skpill">Google Suite</span><span class="skpill">Power BI (certified)</span></div></div>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <div class="contact-inner">
-    <div>
-      <h2 class="contact-heading reveal">Let's work<br>on something<br><em>good.</em></h2>
-    </div>
-    <div class="contact-links reveal">
-      <a href="mailto:tarangjammalamadaka9@gmail.com" class="contact-link">
-        <span class="contact-link-icon">Email</span>
-        <span class="contact-link-text">tarangjammalamadaka9@gmail.com</span>
-        <span class="contact-link-label">↗</span>
-      </a>
-      <a href="https://www.linkedin.com/in/tarang-tj/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">LinkedIn</span>
-        <span class="contact-link-text">linkedin.com/in/tarang-tj</span>
-        <span class="contact-link-label">↗</span>
-      </a>
-      <a href="https://github.com/tarang-tj" target="_blank" class="contact-link">
-        <span class="contact-link-icon">GitHub</span>
-        <span class="contact-link-text">github.com/tarang-tj</span>
-        <span class="contact-link-label">↗</span>
-      </a>
+  <div class="wrap">
+    <div class="ctgrid">
+      <div class="reveal">
+        <div class="ctbig">Got a problem<br>worth <em>solving?</em></div>
+        <p class="ctnote">Open to full-time roles and internships in data analytics, business analysis, and operations. Based in Seattle — open to relocation.</p>
+      </div>
+      <div class="ctlinks reveal">
+        <a href="mailto:tarangjammalamadaka9@gmail.com" class="cta">
+          <span class="cta-tag">Email</span>
+          <span class="cta-val">tarangjammalamadaka9@gmail.com</span>
+          <span class="cta-arr">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/tarang-tj/" target="_blank" class="cta">
+          <span class="cta-tag">LinkedIn</span>
+          <span class="cta-val">linkedin.com/in/tarang-tj</span>
+          <span class="cta-arr">↗</span>
+        </a>
+        <a href="https://github.com/tarang-tj" target="_blank" class="cta">
+          <span class="cta-tag">GitHub</span>
+          <span class="cta-val">github.com/tarang-tj</span>
+          <span class="cta-arr">↗</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -337,13 +424,28 @@
 </footer>
 
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} });
+},{threshold:0.08});
+reveals.forEach(el => obs.observe(el));
+
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function anim(){
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,.btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='46px';ring.style.height='46px';cur.style.opacity='0.3'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';cur.style.opacity='1'});
+});
 </script>
 </body>
 </html>
