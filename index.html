@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TJ Jammalamadaka — data and business analyst portfolio. SQL, Python, Tableau, Excel modeling, and live dashboards. Seattle, WA.">
+<meta name="theme-color" content="#020408">
+<meta name="color-scheme" content="dark">
 <title>TJ Jammalamadaka — Data & Business Analyst</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
@@ -20,6 +23,7 @@
   --panel-bg: rgba(6,20,35,0.92);
 }
 
+html { scroll-behavior: smooth; }
 html, body {
   width: 100%; height: 100%;
   overflow: hidden;
@@ -27,6 +31,16 @@ html, body {
   color: var(--text);
   font-family: 'Space Mono', monospace;
   cursor: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  #cursor, #cursor-ring { display: none !important; }
+  body { cursor: auto; }
 }
 
 /* CURSOR */
@@ -55,6 +69,28 @@ html, body {
 }
 body.hovering #cursor { width: 14px; height: 14px; }
 body.hovering #cursor-ring { width: 48px; height: 48px; }
+
+.skip-link {
+  position: fixed;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 12000;
+  padding: 0.55rem 1rem;
+  background: var(--glow);
+  color: var(--void);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 
 /* CANVAS */
 #bg-canvas {
@@ -210,6 +246,10 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   box-shadow: 0 0 16px rgba(0,229,255,0.15);
   color: white;
 }
+.btn-nav:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
 @keyframes slideIn {
   from { opacity: 0; transform: translateX(-24px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -312,6 +352,10 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   transition: all 0.2s;
 }
 .panel-close-btn:hover { color: var(--glow); border-color: var(--glow); }
+.panel-close-btn:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
 
 .panel-box {
   width: 100%; max-width: 860px;
@@ -319,6 +363,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   background: var(--panel-bg);
   padding: 2.5rem;
   position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 229, 255, 0.06) inset;
 }
 .panel-box::before {
   content: '';
@@ -340,13 +385,20 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--glow);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
+}
+.panel-lede {
+  font-size: 0.72rem;
+  line-height: 1.75;
+  color: var(--dim);
+  max-width: 52rem;
+  margin-bottom: 2rem;
 }
 
 /* PROJECTS */
 .proj-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1px;
   background: rgba(0,229,255,0.08);
 }
@@ -366,6 +418,48 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 .proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .ptag { font-size: 0.53rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.45rem; border: 1px solid rgba(0,229,255,0.18); color: var(--glow); }
 
+article.proj-card {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+a.proj-card {
+  cursor: pointer;
+}
+.proj-card--static {
+  cursor: default;
+}
+.proj-card--static:hover {
+  background: var(--deep);
+}
+.proj-card-links {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  border-top: 1px solid rgba(0,229,255,0.08);
+}
+.proj-card-links a {
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--glow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,229,255,0.35);
+  padding-bottom: 0.08rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.proj-card-links a:hover {
+  color: #fff;
+  border-bottom-color: var(--glow);
+}
+.proj-card-links a:focus-visible {
+  outline: 1px solid var(--glow);
+  outline-offset: 3px;
+}
 /* EXPERIENCE */
 .exp-timeline { padding-left: 1.75rem; border-left: 1px solid rgba(0,229,255,0.2); }
 .exp-entry { position: relative; margin-bottom: 2.5rem; }
@@ -417,6 +511,10 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   cursor: pointer;
 }
 .clink:hover { background: rgba(0,229,255,0.07); color: white; }
+.clink:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: -2px;
+}
 .clink-icon { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--glow); min-width: 65px; }
 .clink-val { font-size: 0.75rem; }
 .clink-arr { margin-left: auto; color: var(--glow); font-size: 0.8rem; }
@@ -540,6 +638,11 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   }
   .mob-nav-btn:last-child { border-right: none; }
   .mob-nav-btn:active { color: var(--glow); background: rgba(0,229,255,0.06); }
+  .mob-nav-btn:focus-visible {
+    outline: 2px solid var(--glow);
+    outline-offset: -4px;
+    z-index: 1;
+  }
   .mob-nav-btn svg {
     width: 16px; height: 16px;
     stroke: currentColor;
@@ -568,7 +671,8 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
   }
 
   .panel-title { font-size: 1.65rem; }
-  .panel-tag { margin-bottom: 1.5rem; }
+  .panel-tag { margin-bottom: 0.75rem; }
+  .panel-lede { font-size: 0.68rem; margin-bottom: 1.35rem; }
 
   /* FIX: Prominent mobile close button — full-width bar at top */
   .panel-close-btn {
@@ -633,6 +737,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <!-- LOADER -->
 <div id="loader">
@@ -652,6 +757,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 <div id="scanlines"></div>
 <div id="vignette"></div>
 
+<main id="main-content">
 <!-- NAV -->
 <div id="nav">
   <div class="nav-logo">TJ<em>.</em>dev</div>
@@ -671,10 +777,10 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
     <div><div class="stat-num">3.7</div><div class="stat-lbl">GPA</div></div>
   </div>
   <div class="hero-btns">
-    <button class="btn-nav" onclick="openPanel('projects')">[ Projects ]</button>
-    <button class="btn-nav" onclick="openPanel('experience')">[ Experience ]</button>
-    <button class="btn-nav" onclick="openPanel('skills')">[ Skills ]</button>
-    <button class="btn-nav" onclick="openPanel('contact')">[ Contact ]</button>
+    <button type="button" class="btn-nav" onclick="openPanel('projects')">[ Projects ]</button>
+    <button type="button" class="btn-nav" onclick="openPanel('experience')">[ Experience ]</button>
+    <button type="button" class="btn-nav" onclick="openPanel('skills')">[ Skills ]</button>
+    <button type="button" class="btn-nav" onclick="openPanel('contact')">[ Contact ]</button>
   </div>
 </div>
 
@@ -689,19 +795,19 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 
 <!-- ── MOBILE BOTTOM NAV ─────────────────────────────────── -->
 <div id="mobile-nav">
-  <button class="mob-nav-btn" onclick="openPanel('projects')">
+  <button type="button" class="mob-nav-btn" onclick="openPanel('projects')">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
     Projects
   </button>
-  <button class="mob-nav-btn" onclick="openPanel('experience')">
+  <button type="button" class="mob-nav-btn" onclick="openPanel('experience')">
     <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
     Experience
   </button>
-  <button class="mob-nav-btn" onclick="openPanel('skills')">
+  <button type="button" class="mob-nav-btn" onclick="openPanel('skills')">
     <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     Skills
   </button>
-  <button class="mob-nav-btn" onclick="openPanel('contact')">
+  <button type="button" class="mob-nav-btn" onclick="openPanel('contact')">
     <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     Contact
   </button>
@@ -712,51 +818,71 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 <!-- PROJECTS -->
 <div class="panel" id="panel-projects">
   <div class="panel-backdrop" onclick="closePanel('projects')"></div>
-  <button class="panel-close-btn" onclick="closePanel('projects')">Back</button>
+  <button type="button" class="panel-close-btn" onclick="closePanel('projects')" aria-label="Close projects">Back</button>
   <div class="panel-box">
     <div class="panel-title">Selected Projects</div>
     <div class="panel-tag">// 01 — Work</div>
+    <p class="panel-lede">End-to-end analytics: live apps, GitHub Pages case studies, and repos. Use the links on each card to open the demo or source.</p>
     <div class="proj-grid">
-      <a href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" class="proj-card">
-        <div class="proj-yr">2026 · Live ↗</div>
+      <article class="proj-card">
+        <div class="proj-yr">2026 · Public analysis</div>
         <div class="proj-name">WA Homelessness &amp; Housing Affordability</div>
         <div class="proj-desc">Solo analysis of 9 years of Zillow Rental Index data alongside income and homelessness metrics for WA State. Identified inflection points where rent outpaced income growth.</div>
         <div class="proj-tags">
           <span class="ptag">R</span><span class="ptag">Tableau</span><span class="ptag">Trend Analysis</span><span class="ptag">Public Data</span>
         </div>
-      </a>
-      <a href="https://github.com/tarang-tj/ecommerce-sql" target="_blank" class="proj-card">
-        <div class="proj-yr">2025 · GitHub ↗</div>
+        <div class="proj-card-links">
+          <a href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" rel="noopener noreferrer" aria-label="WA housing project: open live site">Live site ↗</a>
+          <a href="https://github.com/tarang-tj/wa-housing-homelessness" target="_blank" rel="noopener noreferrer" aria-label="WA housing project: open GitHub repository">GitHub ↗</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-yr">2025 · SQL portfolio</div>
         <div class="proj-name">E-Commerce SQL Analytics</div>
-        <div class="proj-desc">End-to-end behavioral analysis on a simulated e-commerce dataset. RFM segmentation, cohort retention, and funnel analysis across 100K+ order records. Includes full INSIGHTS.md and README.</div>
+        <div class="proj-desc">End-to-end behavioral analysis on a simulated e-commerce dataset. RFM segmentation, cohort retention, and funnel analysis across 100K+ order records. Documentation includes INSIGHTS.md and README.</div>
         <div class="proj-tags">
           <span class="ptag">PostgreSQL</span><span class="ptag">RFM Segmentation</span><span class="ptag">Cohort Analysis</span><span class="ptag">Funnel Analysis</span>
         </div>
-      </a>
-      <div class="proj-card">
-        <div class="proj-yr">2025 · Live ↗</div>
+        <div class="proj-card-links">
+          <a href="https://github.com/tarang-tj/ecommerce-sql" target="_blank" rel="noopener noreferrer" aria-label="E-commerce SQL: open GitHub repository">Repository ↗</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-yr">2025 · Live app</div>
         <div class="proj-name">Economic Pulse Dashboard</div>
-        <div class="proj-desc">Interactive macroeconomic dashboard pulling live FRED API data. Features ARIMA forecasting, a composite Economic Health Score, Sahm Rule recession tracking, and yield curve spread visualization.</div>
+        <div class="proj-desc">Streamlit dashboard fed by the FRED API: trend regression, a composite Economic Health Score, Sahm Rule recession tracking, and ARIMA(1,1,1) forecasts with confidence bands. Interactive charts built with Plotly.</div>
         <div class="proj-tags">
-          <span class="ptag">Python</span><span class="ptag">Streamlit</span><span class="ptag">FRED API</span><span class="ptag">ARIMA</span><span class="ptag">Chart.js</span>
+          <span class="ptag">Python</span><span class="ptag">Streamlit</span><span class="ptag">FRED API</span><span class="ptag">ARIMA</span><span class="ptag">Plotly</span>
         </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-yr">2025</div>
+        <div class="proj-card-links">
+          <a href="https://economic-pulse-dashboard-bwxtaias7g4h7ctqpcntbg.streamlit.app/" target="_blank" rel="noopener noreferrer" aria-label="Economic Pulse: open Streamlit live app">Live app ↗</a>
+          <a href="https://github.com/tarang-tj/economic-pulse-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Economic Pulse: open GitHub repository">GitHub ↗</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-yr">2025 · Case study site</div>
         <div class="proj-name">Operations &amp; Forecasting Model</div>
-        <div class="proj-desc">Multivariate regression on 18 months of sales data achieving 94% prediction accuracy. KPI dashboard tracking 15+ metrics, driving 35% reduction in carrying costs.</div>
+        <div class="proj-desc">Solo Excel analytics build: multivariate demand model on 18 months of sales with holdout validation, interactive KPI dashboard (15+ metrics), reorder-point logic, and Solver-backed recommendations—full methodology on GitHub Pages.</div>
         <div class="proj-tags">
-          <span class="ptag">Excel</span><span class="ptag">Regression</span><span class="ptag">Forecasting</span>
+          <span class="ptag">Excel</span><span class="ptag">Regression</span><span class="ptag">Solver</span><span class="ptag">VBA</span><span class="ptag">Power Query</span>
         </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-yr">2025</div>
-        <div class="proj-name">CED Financial Case Competition</div>
-        <div class="proj-desc">Multi-channel growth strategy projecting $15.3M revenue and 81.5% operating income improvement. Analyzed 25+ expense categories to find 10–16% cost levers.</div>
+        <div class="proj-card-links">
+          <a href="https://tarang-tj.github.io/operations-forecasting-model/" target="_blank" rel="noopener noreferrer" aria-label="Operations forecasting: open live case study">Live site ↗</a>
+          <a href="https://github.com/tarang-tj/operations-forecasting-model" target="_blank" rel="noopener noreferrer" aria-label="Operations forecasting: open GitHub repository">GitHub ↗</a>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-yr">2025 · Live dashboard</div>
+        <div class="proj-name">Team Cartier — Financial Performance</div>
+        <div class="proj-desc">FY2024 wholesale distribution case: interactive financial dashboard with forecast vs. actual revenue by channel, P&amp;L waterfall, 25+ expense categories vs. budget, and KPIs including margin and working capital—built for a CED-style competition deliverable.</div>
         <div class="proj-tags">
-          <span class="ptag">Financial Modeling</span><span class="ptag">Strategy</span><span class="ptag">Excel</span>
+          <span class="ptag">Financial Modeling</span><span class="ptag">Dashboard</span><span class="ptag">P&amp;L</span><span class="ptag">Case Comp</span>
         </div>
-      </div>
+        <div class="proj-card-links">
+          <a href="https://tarang-tj.github.io/team-cartier-dashboard/" target="_blank" rel="noopener noreferrer" aria-label="Team Cartier: open live dashboard">Live site ↗</a>
+          <a href="https://github.com/tarang-tj/team-cartier-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Team Cartier: open GitHub repository">GitHub ↗</a>
+        </div>
+      </article>
     </div>
   </div>
 </div>
@@ -764,7 +890,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 <!-- EXPERIENCE -->
 <div class="panel" id="panel-experience">
   <div class="panel-backdrop" onclick="closePanel('experience')"></div>
-  <button class="panel-close-btn" onclick="closePanel('experience')">Back</button>
+  <button type="button" class="panel-close-btn" onclick="closePanel('experience')" aria-label="Close experience">Back</button>
   <div class="panel-box">
     <div class="panel-title">Experience</div>
     <div class="panel-tag">// 02 — Career Timeline</div>
@@ -806,7 +932,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 <!-- SKILLS -->
 <div class="panel" id="panel-skills">
   <div class="panel-backdrop" onclick="closePanel('skills')"></div>
-  <button class="panel-close-btn" onclick="closePanel('skills')">Back</button>
+  <button type="button" class="panel-close-btn" onclick="closePanel('skills')" aria-label="Close skills">Back</button>
   <div class="panel-box">
     <div class="panel-title">Skills</div>
     <div class="panel-tag">// 03 — Technical Stack</div>
@@ -845,7 +971,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
 <!-- CONTACT -->
 <div class="panel" id="panel-contact">
   <div class="panel-backdrop" onclick="closePanel('contact')"></div>
-  <button class="panel-close-btn" onclick="closePanel('contact')">Back</button>
+  <button type="button" class="panel-close-btn" onclick="closePanel('contact')" aria-label="Close contact">Back</button>
   <div class="panel-box">
     <div class="panel-title">Contact</div>
     <div class="panel-tag">// 04 — Get In Touch</div>
@@ -860,12 +986,12 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
           <span class="clink-val">tarangjammalamadaka9@gmail.com</span>
           <span class="clink-arr">↗</span>
         </a>
-        <a href="https://www.linkedin.com/in/tarang-tj/" target="_blank" class="clink">
+        <a href="https://www.linkedin.com/in/tarang-tj/" target="_blank" rel="noopener noreferrer" class="clink">
           <span class="clink-icon">LinkedIn</span>
           <span class="clink-val">linkedin.com/in/tarang-tj</span>
           <span class="clink-arr">↗</span>
         </a>
-        <a href="https://github.com/tarang-tj" target="_blank" class="clink">
+        <a href="https://github.com/tarang-tj" target="_blank" rel="noopener noreferrer" class="clink">
           <span class="clink-icon">GitHub</span>
           <span class="clink-val">github.com/tarang-tj</span>
           <span class="clink-arr">↗</span>
@@ -874,6 +1000,7 @@ body.hovering #cursor-ring { width: 48px; height: 48px; }
     </div>
   </div>
 </div>
+</main>
 
 <!-- THREE.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -908,7 +1035,14 @@ document.querySelectorAll('button, a, .proj-card').forEach(addHover);
 
 // ─── PANELS ────────────────────────────────────────────────
 function openPanel(name) {
-  document.getElementById('panel-' + name).classList.add('open');
+  var p = document.getElementById('panel-' + name);
+  if (!p) return;
+  p.classList.add('open');
+  p.scrollTop = 0;
+  requestAnimationFrame(function() {
+    var btn = p.querySelector('.panel-close-btn');
+    if (btn && typeof btn.focus === 'function') btn.focus();
+  });
 }
 function closePanel(name) {
   document.getElementById('panel-' + name).classList.remove('open');
