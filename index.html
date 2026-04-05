@@ -1027,28 +1027,25 @@ a.proj-card {
 var cursorEl = document.getElementById('cursor');
 var ringEl   = document.getElementById('cursor-ring');
 var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-var ringX  = mouseX, ringY = mouseY;
-var RING_LERP = 0.28;
 
-function setCursorTransform(el, x, y) {
+function setCursorEl(el, x, y) {
   if (!el) return;
-  el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%,-50%)';
+  var w = el.offsetWidth || (el.id === 'cursor' ? 8 : 30);
+  var h = el.offsetHeight || (el.id === 'cursor' ? 8 : 30);
+  el.style.transform = 'translate3d(' + (x - w * 0.5) + 'px,' + (y - h * 0.5) + 'px,0)';
 }
 
-setCursorTransform(cursorEl, mouseX, mouseY);
-setCursorTransform(ringEl, ringX, ringY);
+function syncCursor() {
+  setCursorEl(cursorEl, mouseX, mouseY);
+  setCursorEl(ringEl, mouseX, mouseY);
+}
+
+syncCursor();
 
 document.addEventListener('mousemove', function(e) {
   mouseX = e.clientX; mouseY = e.clientY;
-  setCursorTransform(cursorEl, mouseX, mouseY);
+  syncCursor();
 }, { passive: true });
-
-(function tickRing() {
-  ringX += (mouseX - ringX) * RING_LERP;
-  ringY += (mouseY - ringY) * RING_LERP;
-  setCursorTransform(ringEl, ringX, ringY);
-  requestAnimationFrame(tickRing);
-})();
 
 function addHover(el) {
   el.addEventListener('mouseenter', function() { document.body.classList.add('hovering'); });
